@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+	<link rel="stylesheet" href="bower_components/dijit/themes/claro/claro.css">
+	
+	
+	<script src='bower_components/dojo/dojo.js'></script>
+	
+	<script>
+
+		require(["dojo/parser", "dijit/form/DateTextBox"]);
+	</script>
+</head>
+<body class="claro">
+    <label for="dateFrom">From:</label>
+	<input type="text" name="dateFrom" id="dateFrom" data-dojo-type="dijit/form/DateTextBox" required="true" />
+
+	<label for="dateTo">To:</label>
+	<input type="text" name="dateTo" id="dateTo" data-dojo-type="dijit/form/DateTextBox" required="true" />
+
+
+	<script type="text/javascript">
+
+		require([
+			"dojo/parser",
+			"dijit/registry",
+			"dojo/dom",
+			"dojo/on",
+			"dojo/domReady!"
+		], function(parser, registry, dom, on) {
+
+			debugger;
+
+			parser.parse();
+        	var dateFrom = registry.byId("dateFrom");
+        	var dateTo = registry.byId("dateTo");
+
+
+        	on(dateFrom, 'onChange', function(){
+        		console.log("onChange");
+        		dateTo.constraints.min = dateFrom.getValue();
+        	});
+
+        	on(dateFrom, 'change', function(){
+        		console.log("change");
+        		dateTo.constraints.min = dateFrom.getValue();
+        	});
+
+        	on(dateTo, 'onChange', function(){
+        		dateFrom.constraints.max = dateTo.getValue();
+        	});
+
+
+
+        	//d.constraints.min = new Date()			
+
+
+		});
+
+	</script>
+
+</body>
+</html>
